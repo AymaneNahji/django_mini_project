@@ -1,0 +1,35 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+  <div class="p-1 mt-5">
+    <div class="text-end mt-5">
+      <a href="add" class="btn btn-primary rounded">go to add</a>
+    </div>
+
+    <div class="d-flex flex-column align-items-center">
+      {% for x in arts %}
+        <div  class="d-flex flex-column align-items-center rounded p-1 m-1 col-8" style="background-color: #00000011;" >
+          {% csrf_token %}
+          <img class="m-1" src="{{ x.image }}" style="max-width: 200px;max-height: 200px;" />
+          <input onchange="upTitle(this.value,{{x.pk}})" value="{{ x.title }}" type="text" name="title" placeholder="title" class="form-control rounded mb-2 text-center" maxlength="199" required />
+          <textarea onchange="upContent(this.value,{{x.pk}})" placeholder="content" name="content" class="form-control rounded mb-2 text-center" style="height: 200px;resize: none;" required>{{ x.content }}</textarea>
+          <a href="del?id={{x.pk}}" class="btn btn-danger rounded" >delete</a> 
+        </div>
+      {% endfor %}
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      axios.defaults.xsrfCookieName = 'csrftoken'
+      axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
+      
+      const upTitle = (t,id) => {
+        console.log(t)
+        axios.post('/up',{title:t,id:id}).then((v) => console.log(v.data))
+      }
+      const upContent = (c,id) =>{
+        console.log(c)
+        axios.post('/up',{content:c,id:id}).then((v) => console.log(v.data))
+      }
+    </script>
+  </div>
+{% endblock %}

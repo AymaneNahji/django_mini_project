@@ -1,0 +1,23 @@
+{% extends "Base.html" %}
+
+{% block content %}
+<div class="p-1 mt-5">
+    <div class="text-end mt-5">
+      
+    </div>
+
+    <div>
+        <div class="row w-100 justify-content-center align-items-center">
+            {% for x in arts %}
+              <a  href="art?id={{x.pk}}"  class="d-flex flex-column align-items-center rounded p-1 m-1 col-8 col-sm-4" style="background-color: #00000011;" >
+                {% csrf_token %}
+                <img class="m-1" src="{{ x.image }}" style="max-width: 200px;max-height: 200px;" />
+                <input readonly  value="{{ x.title }}" type="text" name="title" placeholder="title" class="form-control rounded mb-2 text-center" maxlength="199"  />
+                
+              </a>
+            {% endfor %}
+          </div>
+    </div>
+    
+  </div>
+{% endblock content %}

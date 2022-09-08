@@ -1,0 +1,14 @@
+{% extends 'Base.html' %}
+{% block content %}
+  <div class="d-flex justify-content-center align-items-center" style="height:100vh">
+    <form class="d-flex flex-column col-10  col-sm-5 col-md-3" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <input type="text" name="title" placeholder="title" class="form-control rounded mb-2 text-center" maxlength="199" required />
+      <textarea placeholder="content" name="content" class="form-control rounded mb-2 text-center" style="height: 200px;resize: none;" required></textarea>
+      <input type="file" name="image" accept="images/*" class="form-control rounded mb-2 text-center" required/>
+      <input type="submit" value="Add" class="btn btn-primary rounded" />
+
+    </form>
+  </div>
+{% endblock %}
